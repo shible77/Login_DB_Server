@@ -9,7 +9,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Environment variables
-!.env      # Explicitly include .env
+.env      # Explicitly include .env
 
 # OS generated files
 .DS_Store
