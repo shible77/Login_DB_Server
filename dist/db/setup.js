@@ -16,7 +16,7 @@ if (!process.env.DB_URL) {
 const connection = mysql2_2.default.createConnection({
     uri: process.env.DB_URL,
     ssl: {
-        ca: fs_1.default.readFileSync(path_1.default.resolve(__dirname, 'E:\\FreeDBTest/src/db/ca.pem')),
+        ca: fs_1.default.readFileSync(path_1.default.resolve(__dirname, './ca.pem')),
     },
 });
 exports.db = (0, mysql2_1.drizzle)(connection);

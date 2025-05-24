@@ -11,7 +11,7 @@ if (!process.env.DB_URL) {
 const connection = mysql.createConnection({
   uri: process.env.DB_URL,
   ssl: {
-    ca: fs.readFileSync(path.resolve(__dirname, 'E:\\FreeDBTest/src/db/ca.pem')),
+    ca: fs.readFileSync(path.resolve(__dirname, './ca.pem')),
   },
 });
 
