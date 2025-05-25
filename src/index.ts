@@ -7,11 +7,11 @@ const cors = require('cors');
 import dotenv  from 'dotenv';
 dotenv.config();
 
-// app.use(cors({
-//   origin: 'http://localhost:5173', // Front-end URL
-//   credentials: true,               // Allow sending cookies
-// }));
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Front-end URL
+  credentials: true,               // Allow sending cookies
+}));
+// app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
