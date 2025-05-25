@@ -7,10 +7,29 @@ const cors = require('cors');
 import dotenv  from 'dotenv';
 dotenv.config();
 
+
+
+const allowedOrigins = [
+  'https://login-ui-jvjv.onrender.com',
+  'http://localhost:5173',
+];
+
 app.use(cors({
-  origin: 'https://login-ui-jvjv.onrender.com', // Front-end URL
-  credentials: true,               // Allow sending cookies
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
+
+
+// app.use(cors({
+//   origin: 'https://login-ui-jvjv.onrender.com', // Front-end URL
+//   credentials: true,               // Allow sending cookies
+// }));
 // app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
@@ -23,7 +42,9 @@ app.use((err: SyntaxError, req: Request, res: Response, next: NextFunction) => {
 });
 
 import userRouter from './routes/userRoutes';
+import userValidateRouter from './routes/userValidateRoutes';
 app.use('/api', userRouter);
+app.use('/api/validate', userValidateRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ error: 'Internal Server Error' });
