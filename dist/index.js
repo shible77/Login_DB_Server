@@ -10,11 +10,11 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-// app.use(cors({
-//   origin: 'http://localhost:5173', // Front-end URL
-//   credentials: true,               // Allow sending cookies
-// }));
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Front-end URL
+    credentials: true, // Allow sending cookies
+}));
+// app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use((err, req, res, next) => {
