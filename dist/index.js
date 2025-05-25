@@ -10,10 +10,25 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+const allowedOrigins = [
+    'https://login-ui-jvjv.onrender.com',
+    'http://localhost:5173',
+];
 app.use(cors({
-    origin: 'http://localhost:5173', // Front-end URL
-    credentials: true, // Allow sending cookies
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
 }));
+// app.use(cors({
+//   origin: 'https://login-ui-jvjv.onrender.com', // Front-end URL
+//   credentials: true,               // Allow sending cookies
+// }));
 // app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
@@ -24,7 +39,9 @@ app.use((err, req, res, next) => {
     next(err); // Pass other errors to the default error handler
 });
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const userValidateRoutes_1 = __importDefault(require("./routes/userValidateRoutes"));
 app.use('/api', userRoutes_1.default);
+app.use('/api/validate', userValidateRoutes_1.default);
 app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal Server Error' });
 });
