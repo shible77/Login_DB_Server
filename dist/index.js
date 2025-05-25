@@ -10,25 +10,10 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const allowedOrigins = [
-    'https://login-ui-jvjv.onrender.com',
-    'http://localhost:5173',
-];
 app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        }
-        else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true
+    origin: 'https://login-ui-jvjv.onrender.com', // Front-end URL
+    credentials: true, // Allow sending cookies
 }));
-// app.use(cors({
-//   origin: 'https://login-ui-jvjv.onrender.com', // Front-end URL
-//   credentials: true,               // Allow sending cookies
-// }));
 // app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
